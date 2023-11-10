@@ -5,7 +5,7 @@ export function hasRelativePath(path: string) {
   if (path === '.' || path === '..') {
     return true;
   }
-  return path.startsWith('./') || path.startsWith('../');
+  return path.startsWith('./') || path.startsWith('../') || path.startsWith('~/');
 }
 
 export function getExtension(importPath: string, quoteSymbol: string) {
@@ -22,6 +22,14 @@ export function toIndex({declaration, quoteSymbol}: Pick<ModuleInfo, 'declaratio
   return `${declaration.replace(new RegExp(`${quoteSymbol}$`), `/index.js${quoteSymbol}`)}`;
 }
 
+export function toIndexJSX({declaration, quoteSymbol}: Pick<ModuleInfo, 'declaration' | 'quoteSymbol'>) {
+  return `${declaration.replace(new RegExp(`${quoteSymbol}$`), `/index.jsx${quoteSymbol}`)}`;
+}
+
 export function toJS({declaration, quoteSymbol}: Pick<ModuleInfo, 'declaration' | 'quoteSymbol'>) {
   return `${declaration.replace(new RegExp(`${quoteSymbol}$`), `.js${quoteSymbol}`)}`;
+}
+
+export function toJSX({declaration, quoteSymbol}: Pick<ModuleInfo, 'declaration' | 'quoteSymbol'>) {
+  return `${declaration.replace(new RegExp(`${quoteSymbol}$`), `.jsx${quoteSymbol}`)}`;
 }
